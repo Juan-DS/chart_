@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráficos Corregidos </title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .chart-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            margin: auto;
+        }
+        canvas {
+            background: #f9f9f9;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+	<h2 style="text-align: center;">Meteorología Ciudad de Puerto Iguazú | 1961-1990</h2>
+    <h4 style="text-align: center;">Precipitaciones medias mensuales </h4>
+    <div class="chart-container">
+        <canvas id="precChart"></canvas>
+        <h4 style="text-align: center;">Temperaturas medias mensuales</h4>
+        <canvas id="tempChart"></canvas>
+    </div>
+
+    <script>
+        const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+        const precipitacion = [160, 140, 180, 160, 140, 130, 110, 130, 150, 170, 190, 180];
+        const tempMax = [30, 32, 33, 28, 26, 20, 22, 24, 27, 29, 34, 35];
+        const tempMed = [25, 25, 26, 23, 22, 18, 19, 21, 24, 26, 29, 28];
+        const tempMin = [18, 19, 20, 16, 15, 10, 12, 15, 18, 19, 23, 21];
+        const tempMaxExt = [38, 37, 38, 34, 30, 25, 27, 29, 32, 34, 39, 40];
+        const tempMinExt = [12, 14, 15, 10, 8, 3, 5, 7, 10, 12, 15, 11];
+
+    
+        // Gráfico de Precipitación
+        const ctxPrec = document.getElementById('precChart').getContext('2d');
+        const precChart = new Chart(ctxPrec, {
+            type: 'bar',
+            data: {
+                labels: meses,
+                datasets: [{
+                    label: 'Precipitación Mensual (mm)',
+                    data: precipitacion,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Precipitación Media Mensual (mm)',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Meses',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    tooltip: {
+                        enabled: true
+                    }
+                }
+            }
+        });
+
+        // Gráfico de Temperatura
+        const ctxTemp = document.getElementById('tempChart').getContext('2d');
+        const tempChart = new Chart(ctxTemp, {
+            type: 'line',
+            data: {
+                labels: meses,
+                datasets: [{
+                    label: 'Temp. Máxima (°C)',
+                    data: tempMax,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Temp. Media (°C)',
+                    data: tempMed,
+                    borderColor: 'rgba(255, 205, 86, 1)',
+                    backgroundColor: 'rgba(255, 205, 86, 0.2)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Temp. Mínima (°C)',
+                    data: tempMin,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Temp. Máxima Extrema (°C)',
+                    data: tempMaxExt,
+                    borderColor: 'rgba(255, 0, 0, 1)',
+                    backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                    borderWidth: 1,
+                    borderDash: [5, 5]
+                },
+                {
+                    label: 'Temp. Mínima Extrema (°C)',
+                    data: tempMinExt,
+                    borderColor: 'rgba(0, 0, 255, 1)',
+                    backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                    borderWidth: 1,
+                    borderDash: [5, 5]
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Temperatura (°C)',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Meses',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                size: 10
+                            }
+                        }
+                    },
+                    tooltip: {
+                        enabled: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
